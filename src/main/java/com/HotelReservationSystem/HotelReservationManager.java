@@ -1,10 +1,10 @@
 package com.HotelReservationSystem;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
+import java.util.TreeMap;
+
 
 public class HotelReservationManager {
     public static ArrayList<Hotel> hotels = new ArrayList<>(); //create Arraylist to add hotels
@@ -14,23 +14,44 @@ public class HotelReservationManager {
 
     }//ArrayList
 
-    public Hotel chepeatestHotelListWeekdayRate(LocalDate date1, LocalDate date2){ //find cheapest hotel
-        long days= ChronoUnit.DAYS.between(date1,date2);
-        Hotel min= Collections.min(hotels, Comparator.comparing(hotel->hotel.weekdayrate));
-        int cheaprate;
-        cheaprate=(int)(days* min.weekdayrate);
-        System.out.println("Cheapest Hotel Name: "+ min.hotelName + "\nTotal Rate: "+cheaprate);
-        return min;
-    }//cHLW
+    public static TreeMap<Long, ArrayList<Hotel>> weekEndORWeekDaysRates(LocalDate date1, LocalDate date2 ){
+        TreeMap<Long, ArrayList<Hotel>> hotelRates = new TreeMap<>();  //Find cheapest hotel based on weekday or weekendDay
+        date2 = date2.plusDays(1);
+        for (Hotel hotel: hotels){
+            long rate = 0;
+            for(LocalDate date = date1; date.isBefore(date2); date = date.plusDays(1)){
+                String today = DayOfWeek.from(date).name();
+                if(today.equals(DayOfWeek.SATURDAY.toString()) || today.equals(DayOfWeek.SUNDAY.toString()) ) {
+                    rate += hotel.weekendrate;
+                }else {
+                    rate+= hotel.weekdayrate;
+                }
+            }
+            ArrayList<Hotel> thisRateHotel = hotelRates.get(rate);
+            if(thisRateHotel == null){
+                thisRateHotel = new ArrayList<>();
+            }
+            thisRateHotel.add(hotel);
+            hotelRates.put(rate, thisRateHotel);
+        }
+        return hotelRates;
 
-    public Hotel chepeatestHotelListWeekEndRate(LocalDate date1, LocalDate date2){ //find cheapest hotel
-        long days= ChronoUnit.DAYS.between(date1,date2);
-        Hotel min2= Collections.min(hotels, Comparator.comparing(hotel->hotel.weekendrate));
-        int cheaprate;
-        cheaprate=(int)(days* min2.weekendrate);
-        System.out.println("Cheapest Hotel Name: "+ min2.hotelName + "\nTotal Rate: "+cheaprate);
-        return min2;
-    }//cHLW
+    }//WEOWDR
+
+
+    public static long cheapHotelWeekday(){ //show cheapest hotel with total rate
+        LocalDate date1 = LocalDate.parse("2020-09-11");
+        LocalDate date2 = LocalDate.parse("2020-09-12");
+        TreeMap<Long, ArrayList<Hotel>> hotelRates = weekEndORWeekDaysRates(date1,date2);
+        System.out.print("\ncheapest hotels are " );
+        long min = hotelRates.keySet().stream().min(Long::compare).get();
+        for (Hotel hotel: hotelRates.get(min)){
+            System.out.print(hotel.hotelName + " ");
+        }
+        System.out.println("with rate: "+ min);
+
+        return min;
+    }//cHW
 
 
 }//class
