@@ -6,6 +6,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 
+import java.time.LocalDate;
+
 
 class HotelReservationManagerTest {
 
@@ -34,4 +36,14 @@ class HotelReservationManagerTest {
         System.out.println("Welcome To Hotel Reservayion System");
         hotels.forEach(System.out::println);
     }//test
+
+    @Test
+    public void cheapestHotelListTest(){
+        LocalDate date1=LocalDate.of(2020,10,10);
+        LocalDate date2=LocalDate.of(2020,10,11);
+
+        Hotel cheapesthotel=hotelReservation.chepeatestHotelList(date1,date2);
+
+        Assertions.assertEquals("Lakewood",cheapesthotel.hotelName);
+    }
 }//class
