@@ -22,9 +22,9 @@ class HotelReservationManagerTest {
 
     }
 
-    Hotel lakewood =new Hotel("Lakewood",100,3);
-    Hotel bridgewood =new Hotel("Bridgewood",200,4);
-    Hotel ridgewood =new Hotel("Ridgewood",300,5);
+    Hotel lakewood =new Hotel("Lakewood",100,120);
+    Hotel bridgewood =new Hotel("Bridgewood",200,240);
+    Hotel ridgewood =new Hotel("Ridgewood",300,350);
 
     @Test
     public void testAddHotel(){ //create addHotelTest method to test
@@ -38,12 +38,27 @@ class HotelReservationManagerTest {
     }//test
 
     @Test
-    public void cheapestHotelListTest(){
+    public void cheapestHotelListTest(){ //find chepest Hotel
         LocalDate date1=LocalDate.of(2020,10,10);
         LocalDate date2=LocalDate.of(2020,10,11);
 
-        Hotel cheapesthotel=hotelReservation.chepeatestHotelList(date1,date2);
+        Hotel cheapesthotel=hotelReservation.chepeatestHotelListWeekEndRate(date1,date2);
 
         Assertions.assertEquals("Lakewood",cheapesthotel.hotelName);
-    }
+    }//CHLT
+
+
+    @Test
+    public void weekdayRates(){ //test weekday hotel rate
+        Assertions.assertEquals(100,lakewood.weekdayrate);
+        Assertions.assertEquals(200,bridgewood.weekdayrate);
+        Assertions.assertEquals(300,ridgewood.weekdayrate);
+    }//WDR
+
+    @Test
+    public void weekEndRates(){ //test weekend hotel rate
+        Assertions.assertEquals(120,lakewood.weekendrate);
+        Assertions.assertEquals(240,bridgewood.weekendrate);
+        Assertions.assertEquals(350,ridgewood.weekendrate);
+    }//WER
 }//class
