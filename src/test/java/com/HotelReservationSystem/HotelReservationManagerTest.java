@@ -21,9 +21,9 @@ class HotelReservationManagerTest {
 
     }
 
-    Hotel lakewood =new Hotel("Lakewood",100,120);
-    Hotel bridgewood =new Hotel("Bridgewood",200,240);
-    Hotel ridgewood =new Hotel("Ridgewood",300,350);
+    Hotel lakewood =new Hotel("Lakewood",100,120,3);
+    Hotel bridgewood =new Hotel("Bridgewood",200,240,4);
+    Hotel ridgewood =new Hotel("Ridgewood",300,350,5);
 
     @Test
     public void testAddHotel(){ //create addHotelTest method to test
