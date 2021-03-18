@@ -8,7 +8,9 @@ import java.util.TreeMap;
 
 
 public class HotelReservationManager {
-    public static ArrayList<Hotel> hotels = new ArrayList<>(); //create Arraylist to add hotels
+    public static ArrayList<Hotel> hotels = new ArrayList<>();//create Arraylist to add hotels
+    public static LocalDate date1 = LocalDate.parse("2020-09-11");
+    public static LocalDate date2 = LocalDate.parse("2020-09-12");
     public ArrayList<Hotel> addHotel(Hotel hotel){ // create addhotel method to add hotelName in list
         hotels.add(hotel);
         return hotels;
@@ -62,7 +64,25 @@ public class HotelReservationManager {
             return hotelRates.get(minRate).stream().max(Comparator.comparing(r -> r.Rating)).get();
 
         }
+    public static Hotel bestRatedHotel(){
+        return hotels.stream().max((R1, R2 ) -> ((Integer)R1.Rating).compareTo(((Integer)R2.Rating))).get();
 
+    }
+
+    public static long totalRates( Hotel hotel){
+        long rate = 0;
+        LocalDate dx =date1;
+        dx = dx.plusDays(1);
+        for(LocalDate date = date1; date.isBefore(dx); date = date.plusDays(1)){
+            String today = DayOfWeek.from(date).name();
+            if(today.equals(DayOfWeek.SATURDAY.toString()) || today.equals(DayOfWeek.SUNDAY.toString()) ) {
+                rate += hotel.weekendrate;
+            }else {
+                rate+= hotel.weekdayrate;
+            }
+        }
+        return rate;
+    }
 
 }//class
 

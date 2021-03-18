@@ -1,9 +1,9 @@
 package com.HotelReservationSystem;
-import static com.HotelReservationSystem.HotelReservationManager.hotels;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static com.HotelReservationSystem.HotelReservationManager.*;
 
 
 class HotelReservationManagerTest {
@@ -39,6 +39,12 @@ class HotelReservationManagerTest {
         Hotel  cheapestHotelByRatings = hotelReservation.cheapestHotelByRating();
         Assertions.assertEquals(lakewood, cheapestHotelByRatings);
         System.out.println("Cheapest hotel by rating: " + cheapestHotelByRatings.hotelName);
+    }
+
+    @Test
+    public void bestRatedHotelTest() { //test find best hotel by rating
+        Assertions.assertEquals(ridgewood, bestRatedHotel());
+        System.out.println("Best rated Hotel: " + bestRatedHotel().hotelName + "  total Rate:  "  + totalRates(bestRatedHotel()) );
     }
 
 }//class
