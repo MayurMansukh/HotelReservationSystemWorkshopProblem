@@ -1,6 +1,4 @@
 package com.HotelReservationSystem;
-
-import static com.HotelReservationSystem.HotelReservationManager.cheapHotelWeekday;
 import static com.HotelReservationSystem.HotelReservationManager.hotels;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -34,12 +32,13 @@ class HotelReservationManagerTest {
 
         System.out.println("Welcome To Hotel Reservayion System");
         hotels.forEach(System.out::println);
-    }//test
+   }
 
     @Test
-    public void getCheapestHotel() { //test find Cheapest hotel based on Weekday Or WeekEndDays
-        Assertions.assertEquals(lakewood,cheapHotelWeekday());
-        cheapHotelWeekday();
-    }//test
+    void cheapestHotelByRatingsTest() {  // test Cheapest Hotel By Rating
+        Hotel  cheapestHotelByRatings = hotelReservation.cheapestHotelByRating();
+        Assertions.assertEquals(lakewood, cheapestHotelByRatings);
+        System.out.println("Cheapest hotel by rating: " + cheapestHotelByRatings.hotelName);
+    }
 
 }//class

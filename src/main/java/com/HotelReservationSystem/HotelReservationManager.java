@@ -3,6 +3,7 @@ package com.HotelReservationSystem;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.TreeMap;
 
 
@@ -39,7 +40,7 @@ public class HotelReservationManager {
     }//WEOWDR
 
 
-    public static long cheapHotelWeekday(){ //show cheapest hotel with total rate
+    public static Object cheapHotelWeekday(){ //show cheapest hotel with total rate
         LocalDate date1 = LocalDate.parse("2020-09-11");
         LocalDate date2 = LocalDate.parse("2020-09-12");
         TreeMap<Long, ArrayList<Hotel>> hotelRates = weekEndORWeekDaysRates(date1,date2);
@@ -51,8 +52,18 @@ public class HotelReservationManager {
         System.out.println("with rate: "+ min);
 
         return min;
+
     }//cHW
+    public static Hotel cheapestHotelByRating() { //find cheapest hotel by rating
+         LocalDate date1 = LocalDate.parse("2020-09-11");
+            LocalDate date2 = LocalDate.parse("2020-09-12");
+            TreeMap<Long, ArrayList<Hotel>> hotelRates = weekEndORWeekDaysRates(date1, date2);
+            long minRate = hotelRates.keySet().stream().min(Long::compare).get();
+            return hotelRates.get(minRate).stream().max(Comparator.comparing(r -> r.Rating)).get();
+
+        }
 
 
 }//class
+
 
