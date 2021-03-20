@@ -17,10 +17,11 @@ public class HotelReservationManager {
 
     }//ArrayList
 
-    public static Hotel cheapHotelByRate(int customerType){ //get chepest hotel by rating to customer Type
+    public static Hotel CheapHotelByRateCustomerType(int customerType) throws InvalidException { //find cheapest best hotel for reward customer
+        if(customerType < 0 || customerType >= 2)
+            throw new InvalidException();
         return Collections.min(hotels, (Comparator.comparing(hotel -> hotel.weekDayRate[customerType])));
-    }//cHBR
-
+    }
     public static long totalRates( Hotel hotel, int customerType)throws InvalidException{ // get total rates of hotelwise and customer Type
         long rate = 0;
         LocalDate date = date2;

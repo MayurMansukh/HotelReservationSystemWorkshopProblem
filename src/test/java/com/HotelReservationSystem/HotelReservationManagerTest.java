@@ -37,7 +37,7 @@ class HotelReservationManagerTest {
 
     @Test
     public void getCheapestHotelByRatesRegular()throws InvalidException {
-        Assertions.assertEquals(lakewood, cheapHotelByRate(Hotel.REWARD_CUSTOMER));
+        Assertions.assertEquals(lakewood, CheapHotelByRateCustomerType(Hotel.REWARD_CUSTOMER));
         showCheapHotel(Hotel.REWARD_CUSTOMER);
 
     }
