@@ -21,7 +21,7 @@ public class HotelReservationManager {
         return Collections.min(hotels, (Comparator.comparing(hotel -> hotel.weekDayRate[customerType])));
     }//cHBR
 
-    public static long totalRates( Hotel hotel, int customerType){ // get total rates of hotelwise and customer Type
+    public static long totalRates( Hotel hotel, int customerType)throws InvalidException{ // get total rates of hotelwise and customer Type
         long rate = 0;
         LocalDate date = date2;
         date = date.plusDays(1);
@@ -38,7 +38,7 @@ public class HotelReservationManager {
         return rate;
     }//totalRates
 
-    public static TreeMap<Long, ArrayList<Hotel>> weekEndWeekDaysRates(int customerType){ //add weekEnd or WeekDay rates by Customer Type
+    public static TreeMap<Long, ArrayList<Hotel>> weekEndWeekDaysRates(int customerType)throws  InvalidException{ //add weekEnd or WeekDay rates by Customer Type
         TreeMap<Long, ArrayList<Hotel>> hotelRates = new TreeMap<>();
         for (Hotel hotel: hotels){
             long rate = totalRates(hotel, customerType);
@@ -53,7 +53,7 @@ public class HotelReservationManager {
         return hotelRates;
 
     }//wEWDR
-    public static void showCheapHotel(int customerType ){ //show Cheapest hotel by customerType
+    public static void showCheapHotel(int customerType )throws InvalidException{ //show Cheapest hotel by customerType
 
         TreeMap<Long, ArrayList<Hotel>> hotelRates = weekEndWeekDaysRates(customerType);
         System.out.print("\ncheapest hotels are " );
@@ -75,7 +75,7 @@ public class HotelReservationManager {
         System.out.println("cheapest hotels are with rate: "+ minRate);
     }//sCH
 
-    public static Hotel cheapestHotelByRating(int customerType){ //show cheapest hotel by customer type or rating
+    public static Hotel cheapestHotelByRating(int customerType)throws InvalidException{ //show cheapest hotel by customer type or rating
 
         TreeMap<Long, ArrayList<Hotel>> hotelRates = weekEndWeekDaysRates(customerType);
         boolean seen = false;

@@ -36,21 +36,21 @@ class HotelReservationManagerTest {
    }
 
     @Test
-    public void getCheapestHotelByRatesRegular() {
+    public void getCheapestHotelByRatesRegular()throws InvalidException {
         Assertions.assertEquals(lakewood, cheapHotelByRate(Hotel.REWARD_CUSTOMER));
         showCheapHotel(Hotel.REWARD_CUSTOMER);
 
     }
 
     @Test
-    public void getCheapestHotelByRatingsRegularTest() {
+    public void getCheapestHotelByRatingsRegularTest() throws InvalidException {
         Hotel  cheapestHotelByRatings = HotelReservationManager.cheapestHotelByRating(Hotel.REWARD_CUSTOMER);
         Assertions.assertEquals(bridgewood, cheapestHotelByRatings);
         System.out.println("Cheapest hotel by rating: " + cheapestHotelByRatings.hotelName);
     }
 
     @Test
-    public void getBestRatedHotelRegularTest() {
+    public void getBestRatedHotelRegularTest()throws InvalidException {
         Assertions.assertEquals(ridgewood, getBestRatedHotel());
         System.out.println(MessageFormat.format("Best rated Hotel: {0}  total Rate:  {1}", getBestRatedHotel().hotelName, totalRates(getBestRatedHotel(), Hotel.REWARD_CUSTOMER)));
     }
