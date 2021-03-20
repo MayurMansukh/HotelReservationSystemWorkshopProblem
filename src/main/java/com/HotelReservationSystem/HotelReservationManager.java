@@ -17,12 +17,24 @@ public class HotelReservationManager {
 
     }//ArrayList
 
+    public static void setDate(String s1, String s2) throws InvalidException {
+        String dateFormat;
+        dateFormat = "^([0-9]{4})-(1[0-2]|0[1-9])-(3[01]|[12][0-9]|0[1-9])$";
+        if (s1.matches(dateFormat) && s2.matches(dateFormat)) {
+            date1 = LocalDate.parse(s1);
+            date2 = LocalDate.parse(s2);
+        } else {
+            throw new InvalidException();
+        }
+    }
+
+
     public static Hotel CheapHotelByRateCustomerType(int customerType) throws InvalidException { //find cheapest best hotel for reward customer
         if(customerType < 0 || customerType >= 2)
             throw new InvalidException();
         return Collections.min(hotels, (Comparator.comparing(hotel -> hotel.weekDayRate[customerType])));
     }
-    public static long totalRates( Hotel hotel, int customerType)throws InvalidException{ // get total rates of hotelwise and customer Type
+    public static long totalRates( Hotel hotel, int customerType) { // get total rates of hotelwise and customer Type
         long rate = 0;
         LocalDate date = date2;
         date = date.plusDays(1);

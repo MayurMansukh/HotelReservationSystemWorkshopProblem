@@ -2,6 +2,7 @@ package com.HotelReservationSystem;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 
 import java.text.MessageFormat;
 
@@ -53,6 +54,16 @@ class HotelReservationManagerTest {
     public void getBestRatedHotelRegularTest()throws InvalidException {
         Assertions.assertEquals(ridgewood, getBestRatedHotel());
         System.out.println(MessageFormat.format("Best rated Hotel: {0}  total Rate:  {1}", getBestRatedHotel().hotelName, totalRates(getBestRatedHotel(), Hotel.REWARD_CUSTOMER)));
+    }
+    @Test
+    void cheapestHotelCheckValidationInputTest()  {
+
+        Assertions.assertThrows(InvalidException.class , new Executable() {
+                    @Override
+                    public void execute() throws Throwable {
+                        setDate("2020-09-11", "2020-13-13");
+                    }
+                });
     }
 
 }//class
