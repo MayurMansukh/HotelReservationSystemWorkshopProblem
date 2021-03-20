@@ -3,6 +3,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.text.MessageFormat;
+
 import static com.HotelReservationSystem.HotelReservationManager.*;
 
 
@@ -18,13 +20,12 @@ class HotelReservationManagerTest {
         hotelReservation.addHotel(ridgewood);
 
     }
-
-    Hotel lakewood =new Hotel("Lakewood",100,120,3);
-    Hotel bridgewood =new Hotel("Bridgewood",200,240,4);
-    Hotel ridgewood =new Hotel("Ridgewood",300,350,5);
+    Hotel lakewood = new Hotel("Lakewood", 3,100, 120, 80, 80);
+    Hotel bridgewood = new Hotel("Bridgewood", 4,200, 240, 110, 50);
+    Hotel ridgewood = new Hotel("Ridgewood", 5,300 , 350, 100, 40);
 
     @Test
-    public void testAddHotel(){ //create addHotelTest method to test
+    public void testAddHotel(){
 
         Assertions.assertTrue(hotels.contains(lakewood));
         Assertions.assertTrue(hotels.contains(bridgewood));
@@ -35,16 +36,23 @@ class HotelReservationManagerTest {
    }
 
     @Test
-    void cheapestHotelByRatingsTest() {  // test Cheapest Hotel By Rating
-        Hotel  cheapestHotelByRatings = hotelReservation.cheapestHotelByRating();
-        Assertions.assertEquals(lakewood, cheapestHotelByRatings);
+    public void getCheapestHotelByRatesRegular() {
+        Assertions.assertEquals(lakewood, cheapHotelByRate(Hotel.REWARD_CUSTOMER));
+        showCheapHotel(Hotel.REWARD_CUSTOMER);
+
+    }
+
+    @Test
+    public void getCheapestHotelByRatingsRegularTest() {
+        Hotel  cheapestHotelByRatings = HotelReservationManager.cheapestHotelByRating(Hotel.REWARD_CUSTOMER);
+        Assertions.assertEquals(bridgewood, cheapestHotelByRatings);
         System.out.println("Cheapest hotel by rating: " + cheapestHotelByRatings.hotelName);
     }
 
     @Test
-    public void bestRatedHotelTest() { //test find best hotel by rating
-        Assertions.assertEquals(ridgewood, bestRatedHotel());
-        System.out.println("Best rated Hotel: " + bestRatedHotel().hotelName + "  total Rate:  "  + totalRates(bestRatedHotel()) );
+    public void getBestRatedHotelRegularTest() {
+        Assertions.assertEquals(ridgewood, getBestRatedHotel());
+        System.out.println(MessageFormat.format("Best rated Hotel: {0}  total Rate:  {1}", getBestRatedHotel().hotelName, totalRates(getBestRatedHotel(), Hotel.REWARD_CUSTOMER)));
     }
 
 }//class
